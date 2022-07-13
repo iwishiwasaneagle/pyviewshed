@@ -1,10 +1,10 @@
-#include <fmt/core.h>
 #include <pybind11/eigen.h>
-#include <pybind11/pybind11.h>
 
 #include "defs.h"
+#include "fmt/core.h"
 #include "grid.h"
 #include "logging.h"
+#include "pybind11/pybind11.h"
 #include "viewshed.h"
 #include "visibility.h"
 
