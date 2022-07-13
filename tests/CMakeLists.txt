@@ -2,8 +2,8 @@ find_package(Catch2 REQUIRED)
 message(STATUS "Found Catch2")
 
 get_target_property(PROJECT_SOURCES pyviewshed SOURCES)
-list(REMOVE_ITEM PROJECT_SOURCES src/bindings.cpp)
-list(REMOVE_ITEM PROJECT_SOURCES ${PROJECT_SOURCE_DIR}/src/main.cpp)
+list(REMOVE_ITEM PROJECT_SOURCES ${SOURCE_DIR}/bindings.cpp)
+list(REMOVE_ITEM PROJECT_SOURCES ${PROJECT_SOURCE_DIR}/${SOURCE_DIR}/main.cpp)
 
 set(TEST_SOURCES
         test_main.cpp
