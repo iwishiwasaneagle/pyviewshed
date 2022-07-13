@@ -17,8 +17,8 @@ message(STATUS "Found Eigen 3.4 at ${EIGEN3_INCLUDE_DIR}")
 include_directories(${EIGEN3_INCLUDE_DIR})
 
 # --- fmt --- #
-find_package(fmt REQUIRED)
-message(STATUS "Found fmt")
+add_subdirectory(extern/fmt)
+
 # --- PyBind11 --- #
 add_subdirectory(extern/pybind11)
 
@@ -28,7 +28,6 @@ add_executable(pyviewshed ${PROJECT_SOURCE_DIR}/${SOURCE_DIR}/main.cpp)
 else(BUILDMAIN)
 pybind11_add_module(pyviewshed MODULE ${SOURCE_DIR}/bindings.cpp)
 endif(BUILD_MAIN)
-target_link_libraries(pyviewshed PRIVATE fmt::fmt-header-only)
 
 # --- Loguru --- #
 include_directories(extern/loguru)

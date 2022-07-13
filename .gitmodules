@@ -4,3 +4,6 @@
 [submodule "extern/loguru"]
 	path = extern/loguru
 	url = https://github.com/emilk/loguru
+[submodule "extern/fmt"]
+	path = extern/fmt
+	url = https://github.com/fmtlib/fmt
