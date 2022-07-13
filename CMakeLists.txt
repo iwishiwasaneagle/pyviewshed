@@ -16,6 +16,7 @@ find_package(Eigen3 3 REQUIRED)
 message(STATUS "Found Eigen 3.4 at ${EIGEN3_INCLUDE_DIR}")
 include_directories(${EIGEN3_INCLUDE_DIR})
 
+
 # --- fmt --- #
 add_subdirectory(extern/fmt)
 
@@ -32,6 +33,9 @@ endif(BUILD_MAIN)
 # --- Loguru --- #
 include_directories(extern/loguru)
 target_sources(pyviewshed PRIVATE ${PROJECT_SOURCE_DIR}/extern/loguru/loguru.cpp)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+target_link_libraries(pyviewshed PRIVATE Threads::Threads)
 
 # --- Files --- #
 include_directories(${SOURCE_DIR})
