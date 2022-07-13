@@ -1,7 +1,6 @@
 #include <pybind11/eigen.h>
 
 #include "defs.h"
-#include "fmt/core.h"
 #include "grid.h"
 #include "logging.h"
 #include "pybind11/pybind11.h"
@@ -37,10 +36,11 @@ PYBIND11_MODULE(pyviewshed, m) {
         .def_readwrite("tgtElev", &ViewOptions::tgtElev)
         .def_readwrite("maxDist", &ViewOptions::maxDist)
         .def("__repr__", [](const ViewOptions &a) {
-            return fmt::format(
-                "<pyviewshed.ViewOptions(obsElev={:.2f},tgtElev={:."
-                "2f},maxDist={:.2f})>",
-                a.obsElev, a.tgtElev, a.maxDist);
+            std::ostringstream stringStream;
+            stringStream << "<pyviewshed.ViewOptions(obsElev=" << a.obsElev
+                         << ",tgtElev=" << a.tgtElev << ",maxDist=" << a.maxDist
+                         << ")>";
+            return stringStream.str();
         });
 
     pybind11::class_<Cell_head>(m, "Cell_head")
@@ -55,11 +55,13 @@ PYBIND11_MODULE(pyviewshed, m) {
         .def_readwrite("south", &Cell_head::south)
         .def_readwrite("west", &Cell_head::west)
         .def("__repr__", [](const Cell_head &a) {
-            return fmt::format(
-                "<pyviewshed.Cell_head(rows={},cols={},ew"
-                "_res={},ns_res={},N={},E={},S={},W={})>",
-                a.rows, a.cols, a.ew_res, a.ns_res, a.north, a.east, a.south,
-                a.west);
+            std::ostringstream stringStream;
+            stringStream << "<pyviewshed.Cell_head(rows=" << a.rows
+                         << ",cols=" << a.cols << ",ew_res=" << a.ew_res
+                         << ",ns_res=" << a.ns_res << ",north=" << a.north
+                         << ",east=" << a.east << ",south" << a.south
+                         << ",west=" << a.west << ")>";
+            return stringStream.str();
         });
 
     pybind11::class_<GridHeader>(m, "GridHeader")
@@ -73,10 +75,13 @@ PYBIND11_MODULE(pyviewshed, m) {
         .def_readwrite("ns_res", &GridHeader::ns_res)
         .def_readwrite("window", &GridHeader::window)
         .def("__repr__", [](const GridHeader &a) {
-            return fmt::format(
-                "<pyviewshed.GridHeader(ncols={},nrows={},xllcorner="
-                "{},yllcorner={},ew_res={},ns_res={})>",
-                a.ncols, a.nrows, a.xllcorner, a.yllcorner, a.ew_res, a.ns_res);
+            std::ostringstream stringStream;
+            stringStream << "<pyviewshed.GridHeader(ncols=" << a.ncols
+                         << ",nrows=" << a.nrows << ",xllcorner=" << a.xllcorner
+                         << ",yllcorner=" << a.yllcorner
+                         << ",ew_res=" << a.ew_res << ",ns_res=" << a.ns_res
+                         << ")>";
+            return stringStream.str();
         });
 
     pybind11::class_<Viewpoint>(m, "Viewpoint")
@@ -86,9 +91,10 @@ PYBIND11_MODULE(pyviewshed, m) {
         .def_readwrite("elev", &Viewpoint::elev)
         .def_readwrite("target_offset", &Viewpoint::target_offset)
         .def("__repr__", [](const Viewpoint &a) {
-            return fmt::format(
-                "<pyviewshed.Viewpoint(row={},col={},elev={},target_offset={})"
-                ">",
-                a.row, a.col, a.elev, a.target_offset);
+            std::ostringstream stringStream;
+            stringStream << "<pyviewshed.Viewpoint(row=" << a.row
+                         << ",col=" << a.col << ",elev=" << a.elev
+                         << ",target_offset" << a.target_offset << ")>";
+            return stringStream.str();
         });
 }

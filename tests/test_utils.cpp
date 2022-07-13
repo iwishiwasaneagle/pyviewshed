@@ -1,7 +1,6 @@
 //
 // Created by jhewers on 13/07/22.
 //
-#include <fmt/format.h>
 
 #include <Eigen/Core>
 #include <catch2/catch.hpp>

@@ -16,10 +16,6 @@ find_package(Eigen3 3 REQUIRED)
 message(STATUS "Found Eigen 3.4 at ${EIGEN3_INCLUDE_DIR}")
 include_directories(${EIGEN3_INCLUDE_DIR})
 
-
-# --- fmt --- #
-add_subdirectory(extern/fmt)
-
 # --- PyBind11 --- #
 add_subdirectory(extern/pybind11)
 
