@@ -1,0 +1,10 @@
+exclude: "extern"
+repos:
+  - repo: https://github.com/pocc/pre-commit-hooks
+    rev: v1.3.5
+    hooks:
+      - id: clang-format
+        args: ["-i"]
+      - id: cppcheck
+        args: ["-x", "c++"]
+      - id: cpplint

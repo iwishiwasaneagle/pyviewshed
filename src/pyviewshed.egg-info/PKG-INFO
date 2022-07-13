@@ -1,0 +1,17 @@
+Metadata-Version: 2.1
+Name: pyviewshed
+Version: 0.1.dev2+geccccbc.d20220713
+Summary: A port of grass.r.viewshed
+Home-page: https://github.com/iwishiwasaneagle/pyviewshed/
+Author: Jan-Hendrik Ewers
+Author-email: j.ewers.1@research.gla.ac.uk
+License: GPL-3.0-or-later
+Project-URL: Source, "https://github.com/iwishiwasaneagle/pyviewshed"
+Platform: Linux
+Classifier: Development Status :: 3 - Alpha
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Natural Language :: English
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown; charset=UTF-8; variant=GFM
