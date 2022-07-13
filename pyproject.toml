@@ -1,0 +1,26 @@
+[build-system]
+requires = [
+    "scikit-build",
+    "setuptools>=46.1.0",
+    "setuptools_scm>=6.2",
+    "pybind11",
+    "cmake"
+]
+
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+
+[tool.cibuildwheel]
+skip = ["pp*"]  #  no pypy
+archs = ["auto64"] # only 64bit
+
+before-all = "apt update && apt-get install -y libeigen3-dev"
+
+manylinux-x86_64-image="manylinux_2_24"
+manylinux-i686-image="manylinux_2_24"
+
+[[tool.cibuildwheel.overrides]]
+select = "*-musllinux*"
+before-all = "apk add py3-pybind11-dev eigen-dev"
+environment = "Eigen3_DIR=/usr/share/cmake/Modules" # https://gitlab.alpinelinux.org/alpine/aports/-/issues/11233

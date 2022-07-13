@@ -1,0 +1,10 @@
+include pyproject.toml requirements.txt setup.cfg setup.py LICENSE.txt README.md CMakeLists.txt
+recursive-include src/pyviewshed *.py *.cpp *.h CMakeLists.txt
+
+exclude MANIFEST.in
+
+include extern/pybind11/CMakeLists.txt
+recursive-include extern/pybind11/include *.h
+recursive-include extern/pybind11/tools *.cmake
+
+include extern/loguru/loguru.cpp extern/loguru/loguru.hpp
