@@ -1,0 +1,79 @@
+name: CI
+
+on:
+    push:
+        branches: [main, dev]
+    pull_request:
+    workflow_dispatch:
+
+env:
+    PYTHONPATH: /home/runner/work/pyviewshed/pyviewshed/src
+
+jobs:
+  run-tests:
+    name: Run tests
+    runs-on: ${{matrix.platform}}
+    strategy:
+      matrix:
+        platform: [ubuntu-latest]
+        python-version:
+            - "3.8"
+            - "3.9"
+            - "3.10"
+            - "3.11"
+    steps:
+
+    - uses: actions/checkout@v3
+      with:
+        submodules: true
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get install libeigen3-dev
+
+    # https://github.com/catchorg/Catch2/issues/1383
+    - name: Install Catch2
+      run: |
+        git clone --branch v2.x https://github.com/catchorg/Catch2.git
+        cd Catch2
+        cmake -Bbuild -H. -DBUILD_TESTING=OFF
+        sudo cmake --build build/ --target install
+
+    - name: Build C++
+      run: |
+        cmake . -DBUILD_TESTS=ON
+        cmake --build .
+
+    # Don't use tox as caching does not work reliably. Maybe re-visit this in the future.
+    - name: Run tests
+      run: |
+        ctest --output-on-failure
+
+    - name: Prepare files for codecov
+      run: |
+        sudo apt-get install lcov
+        lcov --capture --directory . --output-file coverage.info
+        lcov --remove coverage.info --output-file coverage.info '/usr/*' '*/tests/*' '*/extern/*'
+
+    - uses: codecov/codecov-action@v3.1.0
+      if: ${{ github.actor != 'dependabot[bot]' }}
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./coverage.xml,./coverage.info
+        fail_ci_if_error: true
+
+  build-package:
+    name: Build wheels
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        which:  ["manylinux","musllinux"]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Build wheels for ${{matrix.which}}_x86_64
+        uses: pypa/cibuildwheel@2.7.0
+        env:
+          CIBW_BUILD: "*${{matrix.which}}_x86_64"
