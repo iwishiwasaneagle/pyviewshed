@@ -74,6 +74,6 @@ jobs:
           submodules: recursive
 
       - name: Build wheels for ${{matrix.which}}_x86_64
-        uses: pypa/cibuildwheel@2.7.0
+        uses: pypa/cibuildwheel@v2.11.3
         env:
           CIBW_BUILD: "*${{matrix.which}}_x86_64"
